@@ -315,9 +315,11 @@ def load_model(
     trust_remote_code=False,
     half_precision=False,
     bf16=False,
+    **kwargs,
 ):
     """Load a text generation model and make it stream-able."""
     kwargs = {
+        **kwargs,
         "local_files_only": local_files_only,
         "trust_remote_code": trust_remote_code,
     }
