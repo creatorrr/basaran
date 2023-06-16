@@ -314,6 +314,7 @@ def load_model(
     local_files_only=False,
     trust_remote_code=False,
     half_precision=False,
+    bf16=False,
 ):
     """Load a text generation model and make it stream-able."""
     kwargs = {
@@ -335,7 +336,7 @@ def load_model(
 
         # Cast all parameters to float16 if quantization is enabled.
         if half_precision or load_in_8bit or load_in_4bit:
-            kwargs["torch_dtype"] = torch.float16
+            kwargs["torch_dtype"] = torch.float16 if not bf16 else torch.bfloat16
 
     # Support both decoder-only and encoder-decoder models.
     try:
